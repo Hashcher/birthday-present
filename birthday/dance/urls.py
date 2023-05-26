@@ -6,5 +6,5 @@ from .views import *
 urlpatterns = [
     # manager
     path('trustme/jumpscare', trust, name="home"),
-    path('bdaymessage', message, name="message"),
+    path('NSFW', message, name="message"),
 ]

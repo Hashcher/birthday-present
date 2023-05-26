@@ -47,6 +47,7 @@
         height: 0px;
         transition: width 3s, height 3s;
         transition-timing-function: linear;
+        position: absolute;
       }
       .inside {
         width: 80%;
@@ -54,6 +55,11 @@
         position: absolute;
         top: 10%;
         left: 10%;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bgColor);
+        animation: colorChange 0.5s quick infinite;
+        display: none;
       }
       .outside {
         position: absolute;
@@ -61,11 +67,34 @@
         height: 100%;
         margin: 0;
         padding: 0;
+        background-color: var(--bgColor2);
+        animation: colorChange 0.55s quick infinite;
+        display: none;
+      }
+      @keyframes colorChange {
+        to {
+          opacity: 0;
+        }
+
+        from {
+          opacity: 1;
+          background-color: var(--bgColor);
+          background-color: var(--bgColor2);
+        }
+      }
+      .message {
+        color: white;
+        text-align: center;
+        font-size: large;
       }
     </style>
   </head>
   <body>
-    <div class="center">
+    <div class="outside" id="outside">
+      <div class="message">HAPPY BIRTHDAY JACKSON</div>
+    </div>
+    <div class="inside" id="inside"></div>
+    <div class="center" id="center">
       <img
         src="{%static 'dancer.gif'%}"
         alt="this slowpoke moves"
@@ -79,26 +108,29 @@
 <script>
   var snd = new Audio("{%static 'dancemusic.mp3'%}");
   function hide() {
+    document.getElementById("inside").style.display = "block";
+    document.getElementById("outside").style.display = "block";
     document.getElementById("btn").style.display = "none";
     var dancer = document.getElementById("dance");
+    var center = document.getElementById("center");
+    center.style.top = "20%";
+    center.style.left = "35%";
     dancer.style.width = "400px";
     dancer.style.height = "400px";
     snd.play();
   }
-  function disco() {
-    var inner = document.getElementById("inner");
-    var outer = document.getElementById("outer");
-    let colors = ["red", "yellow", "blue", "green", "orange"];
+  let colors = ["red", "yellow", "blue", "green", "orange"];
 
-    setInterval(() => {
-      inner.body.style.setProperty(
-        "--bgColor",
-        colors[Math.floor(Math.random() * 5)]
-      );
-      outer.body.style.setProperty(
-        "--bgColor",
-        colors[Math.floor(Math.random() * 5)]
-      );
-    }, 1000);
-  }
+  setInterval(() => {
+    document.body.style.setProperty(
+      "--bgColor",
+      colors[Math.floor(Math.random() * 5)]
+    );
+  }, 1000);
+  setInterval(() => {
+    document.body.style.setProperty(
+      "--bgColor2",
+      colors[Math.floor(Math.random() * 5)]
+    );
+  }, 1000);
 </script>
